@@ -1,14 +1,15 @@
 # wdio-mocha
 
-Based on the UDEMY course ""
+Based on the course "Automated Software Testing with WebdriverIO" from Udemy
 
 ## Getting started
 
 Installing WDIO
 
 ```shell_script
-npm install --save-dev @wdio/cli
 
+# Starting WDIO project
+npm install --save-dev @wdio/cli
 npx wdio config
 
 # Prettier
