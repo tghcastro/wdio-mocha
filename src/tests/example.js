@@ -17,4 +17,9 @@ describe('First Steps with WebdriverIO', () => {
 		const p = $('p')
 		expect(p).toBeVisible()
 	})
+
+	it('Check link value', () => {
+		const link = $('a')
+		expect(link).toHaveLink("https://www.iana.org/domains/example")
+	})
 })
