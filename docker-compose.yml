@@ -1,0 +1,33 @@
+version: '3'
+services:
+  selenium-hub:
+    image: selenium/hub:3.141.59-20210311
+    environment:
+      - GRID_TIMEOUT=0
+      - GRID_THROW_ON_CAPABILITY_NOT_PRESENT=false
+      - GRID_MAX_INSTANCES=1
+      - GRID_MAX_SESSION=1
+    ports:
+      - 4444
+
+  chrome:
+    image: selenium/node-chrome:3.141.59-20210311
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+      - JAVA_OPTS=-Dselenium.LOGGER.level=WARNING
+      - NODE_MAX_INSTANCES=1
+      - NODE_MAX_SESSION=1
+    shm_size: 2048m
+
+  smoke-tests:
+    build:
+      context: .
+    command: npm run test-docker -- --hostname selenium-hub
+    environment:
+      - NODE_ENV=qa
+    depends_on:
+      - selenium-hub
+      - chrome
